@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>config() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Config &amp; data</div>
+<h1>config()</h1>
+
+<span class="sig">config(defaults)</span>
+
+<p>Reads or creates <code>&lt;plugin folder&gt;/config.lua</code>.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>defaults</code></td><td>table</td><td>Default key-value configuration pairs.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A configuration table.</p>
+
+<h2>Example</h2>
+<pre><code>local cfg = config({ interval = 1200, message = "Hello" })
+log(cfg.message)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">Missing default keys are added. Config edits are read on reload; the generated file asks for reload/restart after manual edits.</div>
+
+</body>
+</html>

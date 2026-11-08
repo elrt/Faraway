@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>region:contains() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Region</div>
+<h1>region:contains()</h1>
+
+<span class="sig">region:contains(x, y, z)
+region:contains(entity)</span>
+
+<p>Checks whether block coordinates or a position-bearing player/entity wrapper are inside the inclusive region bounds. Values are floored to block coordinates.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x, y, z</code> or <code>entity</code></td><td>number or wrapper table</td><td>Supply all three coordinates, or a wrapper that provides <code>pos()</code>.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A boolean indicating whether the target is inside.</p>
+
+<h2>Example</h2>
+<pre><code>on('move', function(e)
+  if myRegion:contains(e.player) then
+    e.player:send("You entered the zone!")
+  end
+end)</code></pre>
+
+</body>
+</html>

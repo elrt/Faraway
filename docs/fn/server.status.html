@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Server status checks - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="home.html">Home</a> / Server</div>
+<h1>Ban and mute status</h1>
+
+<span class="sig">server.isBanned(name)
+server.isMuted(name)</span>
+
+<p>Check whether a named player is currently banned or muted.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>Player name.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Both functions return <code>false</code> when there is no active ban or mute, or <code>true, secondsRemaining</code> when one is active. The remaining duration is in seconds. A permanent ban returns <code>true, 0</code>.</p>
+
+<h2>Example</h2>
+<pre><code>local banned, seconds = server.isBanned("Alex")
+if banned then
+  log("Alex is banned; seconds remaining:", seconds)
+end
+
+local muted, muteSeconds = server.isMuted("Alex")</code></pre>
+
+</body>
+</html>

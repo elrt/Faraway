@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>save() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Config &amp; data</div>
+<h1>save()</h1>
+
+<span class="sig">save()</span>
+
+<p>Writes plugin data and loaded player data using temporary files and rename.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>data.count = (data.count or 0) + 1
+
+on("disable", function()
+  save()
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">The server also saves plugin data during full saves, periodic saves, plugin unload/reload, and shutdown. Call <code>save()</code> after important changes that should be persisted promptly.</div>
+
+</body>
+</html>

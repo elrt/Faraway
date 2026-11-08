@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb">FarAway Server / Farkit 1.6</div>
+<h1>FarAway Lua Plugin API</h1>
+
+<p>Farkit is the Lua plugin system included with the FarAway server. Plugins run inside the server process and can add commands, react to game events, schedule work, inspect players, and modify the primary world.</p>
+
+<div class="note">This documentation describes the bundled Farkit API. Start with <a href="install.html">Install</a> and <a href="first-plugin.html">First plugin</a> if you are new to plugins.</div>
+
+<h2>How plugins are loaded</h2>
+<p>Place plugins in the server's <code>plugins/</code> directory. A plugin may be a single <code>.lua</code> file or a directory containing <code>main.lua</code>. The filename or directory name becomes its plugin name.</p>
+<pre><code>plugins/
+  Welcome.lua
+  Clock/
+    main.lua
+  lib/
+    shared.lua</code></pre>
+
+<h2>What you can do</h2>
+<ul>
+  <li>Register commands with <a href="command.html"><code>command()</code></a>.</li>
+  <li>Listen to built-in events and dispatch custom events with <a href="on.html"><code>on()</code></a> and <a href="emit.html"><code>emit()</code></a>.</li>
+  <li>Use <code>server</code> and player wrappers to interact with online players.</li>
+  <li>Play, stop, or resume background music for a player with the <a href="music.html"><code>player music API</code></a>.</li>
+  <li>Send outbound HTTPS requests or one-shot TCP/UDP messages with the <a href="network.html"><code>network API</code></a>.</li>
+  <li>Format plugin messages and player chat with <a href="color.html"><code>color.*</code></a> and <code>color.translate()</code>.</li>
+  <li>Read or change blocks with the <code>world</code> API and use <code>region()</code> for area helpers.</li>
+  <li>Schedule callbacks in ticks with <a href="after.html"><code>after()</code></a> and <a href="every.html"><code>every()</code></a>.</li>
+  <li>Store settings and persistent data with <code>config()</code>, <code>playerData()</code>, and <code>save()</code>.</li>
+</ul>
+
+<h2>Runtime model</h2>
+<p>Callbacks execute synchronously on the server thread. Keep them short: blocking work and large loops can delay game ticks. Scheduled delays and periods are measured in ticks; at the normal 20 ticks per second, 20 ticks are approximately one second.</p>
+
+<h2>Security</h2>
+<p>Plugins have broad access to the server process, including LuaJ Java interop and file access. This is not a sandbox. Only install plugins you trust, and check permissions before performing privileged actions at a player's request.</p>
+
+<h2>Compatibility</h2>
+<p>The bundled API identifies itself as Farkit <code>1.6</code>. Lua execution is provided by LuaJ with Lua 5.2 syntax. Music controls require the paired updated Faraway client and server JARs; see <a href="music.html">Player music API</a>.</p>
+
+</body>
+</html>

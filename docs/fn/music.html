@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Player music API - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Music</div>
+<h1>Player music API</h1>
+
+<p>Control the background soundtrack on one online player from a Farkit Lua plugin.</p>
+
+<h2>Methods</h2>
+<table>
+  <tr><th>Method</th><th>Behavior</th></tr>
+  <tr><td><code>p:playMusic(trackId)</code></td><td>Play a bundled music track on the player. The track ID is its filename without the extension, for example <code>Farlands</code> or <code>calm1</code>. Playback is one-shot; automatic music may resume after it finishes.</td></tr>
+  <tr><td><code>p:stopMusic()</code></td><td>Stop background music and pause automatic soundtrack selection for that player.</td></tr>
+  <tr><td><code>p:resumeMusic()</code></td><td>Resume the automatic randomized soundtrack.</td></tr>
+</table>
+
+<h2>Example</h2>
+<pre><code>on("join", function(event)
+  event.player:playMusic("Farlands")
+end)
+
+command("music-off", function(sender)
+  if sender.isPlayer then
+    sender:stopMusic()
+    sender:send("Music stopped.")
+  else
+    sender:send("Run this command in-game.")
+  end
+  return true
+end)</code></pre>
+
+<h2>Track IDs and requirements</h2>
+<p>IDs are case-insensitive and may contain only letters, numbers, underscores, and hyphens. The client must have the matching OGG file bundled under <code>resources/music/</code> or <code>resources/newmusic/</code>; the standard bundle includes <code>calm1</code>–<code>calm3</code>, <code>hal1</code>–<code>hal4</code>, <code>nuance1</code>–<code>nuance2</code>, <code>piano1</code>–<code>piano3</code>, and <code>Farlands</code>.</p>
+<p>To add a track to a client build, put its OGG file in <code>orig/jars/resources/music/</code> and rebuild the client with <code>orig/conf/build-client.sh</code>. Update both the Faraway server and client; stock or older clients do not support the music control packet and may disconnect if sent it.</p>
+
+<h2>Return values</h2>
+<p>The methods return <code>true</code> when the command was sent to an online player, and <code>false</code> if the player is offline. This does not confirm that the client has that track ID or that its music volume is enabled.</p>
+
+<h2>Farlands distance weighting</h2>
+<p>The bundled <code>Farlands</code> track also participates in automatic music selection. Its chance starts at the same odds as one individual track within 100 blocks of <code>(0, 0)</code>, rises by one percentage point per 75 blocks up to 1,000 blocks, then smoothly reaches 25% at 10,000 blocks and remains capped. Distance uses <code>max(abs(X), abs(Z))</code>.</p>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>after() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Timers</div>
+<h1>after()</h1>
+
+<span class="sig">after(ticks, handler)</span>
+
+<p>Schedules a one-shot timer to execute a function after a delay.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>ticks</code></td><td>number</td><td>Delay in ticks (20 ticks = 1 second).</td></tr>
+  <tr><td><code>handler</code></td><td>function</td><td>Called as <code>function(task)</code>.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A task handle.</p>
+
+<h2>Example</h2>
+<pre><code>after(100, function(task)
+  server.broadcast('Five seconds have passed.')
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">Delays below one tick are clamped to one tick. Call <code>task:cancel()</code> on the returned handle to cancel it. Tasks are also removed when their plugin is unloaded.</div>
+
+</body>
+</html>

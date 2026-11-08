@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outbound network API - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Integrations</div>
+<h1>Outbound network API</h1>
+
+<p>This is a Lua API for plugin code—not a console command or a manually sent request. A plugin calls the function; the server sends it in the background and invokes the callback on a later game tick.</p>
+<p>Use asynchronous HTTPS, TCP, and UDP exchanges for Discord webhooks, Telegram bots, or your own bot service.</p>
+
+<h2>Enable destinations</h2>
+<p><code>plugin-net-allowlist</code> is optional. If it is empty (the default), the helper API accepts any publicly routable host or IP; no API key or subscription is required. If you fill it, only the exact listed hosts or host-and-port pairs are accepted.</p>
+<pre><code>plugin-net-allowlist=discord.com,api.telegram.org,bot.example.net:9000,bot.example.net:9001</code></pre>
+<p>A bare host permits HTTPS on port 443. TCP/UDP require an exact <code>host:port</code> entry. IPv4 addresses work like hostnames; put IPv6 endpoints in brackets, e.g. <code>[2001:db8::20]:9000</code>. Wildcards are not supported. Local/private, link-local, and multicast addresses remain blocked by these helpers.</p>
+<p>Optional server controls:</p>
+<pre><code>plugin-net-denylist=blocked.example.net,203.0.113.10:443
+plugin-net-requests-per-minute=300</code></pre>
+<p>The denylist blocks exact host or address entries; an entry without a port blocks every port for that host/address. The per-plugin request limit defaults to 300 submissions per minute and may be set from 1 to 3000. Invalid or non-positive values use the default.</p>
+
+<h2>HTTPS</h2>
+<span class="sig">net.https.request(options, callback)</span>
+<pre><code>net.https.request({
+  method = "POST",
+  url = "https://discord.com/api/webhooks/...",
+  headers = { ["Content-Type"] = "application/json" },
+  body = '{"content":"Server is online"}',
+  timeoutMs = 5000
+}, function(response)
+  if not response.ok then
+    log("Webhook failed", response.status or response.error)
+  end
+end)</code></pre>
+<p>Use a complete HTTPS URL because the path identifies the service action. The URL host can be a domain or public IP; for example, <code>https://203.0.113.10/hook</code> (the certificate must be valid for that IP). Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>. Redirects are disabled. A response contains <code>ok</code>, <code>status</code>, and <code>body</code> (also available as <code>data</code>), plus <code>error</code> when applicable.</p>
+<p>HTTPS resolves the URL host once, rejects the request if any resolved address is local/private, link-local, or multicast, and connects to a validated address. TLS SNI and certificate verification still use the URL hostname. The helper uses a direct connection rather than a configured proxy.</p>
+<p>For Telegram, allowlist <code>api.telegram.org</code> and send a JSON <code>POST</code> to its <code>/bot&lt;TOKEN&gt;/sendMessage</code> endpoint. Keep bot tokens in a private config file rather than committing or logging them.</p>
+
+<h2>TCP and UDP</h2>
+<span class="sig">net.tcp.send(host, port, payload, callback)</span>
+<span class="sig">net.udp.send(host, port, payload, callback)</span>
+<pre><code>net.tcp.send("bot.example.net", 9000, "status\n", function(result)
+  if result.ok then
+    log("Bot replied:", result.data)
+  else
+    log("TCP request failed:", result.error)
+  end
+end)</code></pre>
+<p>Pass a domain or IP directly as <code>host</code> and the port separately; no URL is needed for sockets. These are one-shot outbound exchanges, not listeners. TCP sends the payload, closes its output side, then reads a response. UDP sends one datagram and waits for one reply. Both return <code>ok</code>, <code>data</code>, and, on failure, <code>error</code>.</p>
+<p>For an IP-based service, the host argument is just the address, e.g. <code>"203.0.113.10"</code> (replace this documentation-only example with your service's public IP). For HTTPS, put the IP in the URL; the remote TLS certificate must include that IP.</p>
+
+<h2>Limits and trust</h2>
+<ul>
+  <li>Requests are asynchronous; each plugin may submit 300 requests per minute by default. Set <code>plugin-net-requests-per-minute</code> to a value from 1 to 3000 to change the limit. The shared worker queue is bounded.</li>
+  <li>HTTPS timeout is 1–15 seconds; request and response bodies are capped at 64 KiB. TCP/UDP payloads and replies are capped at 4 KiB.</li>
+  <li>Requests to local, private, link-local, or multicast IPs are rejected by these helpers, even when the allowlist is empty.</li>
+  <li>Never log bot tokens or webhook URLs. Keep credentials in a private plugin config file and restrict access to the server directory.</li>
+</ul>
+<div class="warn">This API is not a plugin sandbox. LuaJ Java interop and file access are still available, so a trusted plugin can use Java directly and bypass these helper limits. Only install code you have reviewed and trust.</div>
+
+</body>
+</html>

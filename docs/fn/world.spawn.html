@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.spawn() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.spawn()</h1>
+
+<span class="sig">world.spawn()</span>
+
+<p>Returns the coordinates of the world's spawn point.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>Three numbers: <code>x</code>, <code>y</code>, and <code>z</code>.</p>
+
+<h2>Example</h2>
+<pre><code>command('spawn', function(sender)
+  if sender.isPlayer then
+    local sx, sy, sz = world.spawn()
+    sender:teleport(sx, sy, sz)
+  end
+  return true
+end)</code></pre>
+
+</body>
+</html>

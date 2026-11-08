@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>region:players() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Region</div>
+<h1>region:players()</h1>
+
+<span class="sig">region:players()</span>
+
+<p>Finds all online players currently inside the region.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>An array of player wrappers.</p>
+
+<h2>Example</h2>
+<pre><code>local pList = myRegion:players()
+for _, p in ipairs(pList) do
+  p:send("The arena match is starting!")
+end</code></pre>
+
+</body>
+</html>

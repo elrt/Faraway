@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:pos() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:pos() / blockPos() / look()</h1>
+
+<span class="sig">p:pos()
+p:blockPos()
+p:look()</span>
+
+<p>Reads the player's position or view rotation.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p><code>pos()</code> returns world coordinates <code>x, y, z</code>. <code>blockPos()</code> returns the corresponding block coordinates. <code>look()</code> returns <code>yaw, pitch</code>.</p>
+
+<h2>Example</h2>
+<pre><code>command('whereami', function(sender)
+  if not sender.isPlayer then return true end
+
+  local x, y, z = sender:blockPos()
+  local yaw, pitch = sender:look()
+  sender:send("Block position: " .. x .. ", " .. y .. ", " .. z)
+  return true
+end)</code></pre>
+
+</body>
+</html>

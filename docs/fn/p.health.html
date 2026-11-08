@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:health() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:health() / p:setHealth()</h1>
+
+<span class="sig">p:health()
+p:setHealth(value)</span>
+
+<p>Reads or changes the player's health.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>value</code></td><td>number</td><td>New health value for <code>setHealth</code>. Automatically clamped to 0..20.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p><code>p:health()</code> returns the current health as a number. <code>p:setHealth()</code> returns nothing.</p>
+
+<h2>Example</h2>
+<pre><code>command('heal', { op = true }, function(sender)
+  if not sender.isPlayer then return true end
+
+  sender:setHealth(20)
+  sender:send(color.green .. "Health restored.")
+  return true
+end)</code></pre>
+
+</body>
+</html>

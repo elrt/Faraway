@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.fill() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.fill()</h1>
+
+<span class="sig">world.fill(x1, y1, z1, x2, y2, z2, blockId [, metadata])</span>
+
+<p>Fills an area with a specific block. This is an area-limited extended block helper.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x1, y1, z1</code></td><td>number</td><td>Starting coordinates.</td></tr>
+  <tr><td><code>x2, y2, z2</code></td><td>number</td><td>Ending coordinates.</td></tr>
+  <tr><td><code>blockId</code></td><td>number</td><td>The block ID to place. Use 0 for air.</td></tr>
+  <tr><td><code>metadata</code></td><td>number, optional</td><td>Optional block data value.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A boolean success result from the extended helper.</p>
+
+<h2>Example</h2>
+<pre><code>local x, y, z = world.spawn()
+world.fill(x - 2, y, z - 2, x + 2, y, z + 2, 1) -- 5x5 stone platform</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">This helper belongs to the bundled Faraway 1.2 extension, not the base methods declared in <code>Farkit.java</code>. Large edits should be divided across scheduled callbacks to avoid long ticks.</div>
+
+</body>
+</html>

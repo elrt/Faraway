@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:send() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:send()</h1>
+
+<span class="sig">p:send(text)</span>
+
+<p>Sends a chat message to the player. You can use <code>color.*</code> codes or <a href="color.html"><code>color.translate()</code></a>.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>text</code></td><td>string</td><td>Message text. Color codes like <code>color.green</code> work.</td></tr>
+</table>
+
+<h2>Example</h2>
+<pre><code>on('join', function(e)
+  e.player:send(color.green .. 'Welcome back, ' .. e.player.name .. '!')
+end)
+
+command('ping', function(sender)
+  sender:send(color.aqua .. 'Pong!')
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">If the player is offline, <code>p:send</code> does nothing. In delayed code, check <code>p:online()</code> first.</div>
+
+</body>
+</html>

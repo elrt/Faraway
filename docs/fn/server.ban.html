@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>server.ban() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Server</div>
+<h1>server.ban()</h1>
+
+<span class="sig">server.ban(name [, reason [, source]])
+server.unban(name)
+server.isBanned(name)</span>
+
+<p>Bans a player forever. If they are online, they get kicked right away.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>Player name.</td></tr>
+  <tr><td><code>reason</code></td><td>string, optional</td><td>Shown to the player on the disconnect screen.</td></tr>
+  <tr><td><code>source</code></td><td>string, optional</td><td>Who issued the ban. Defaults to the plugin name.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p><code>ban()</code> returns nothing. <code>unban()</code> returns whether a ban was removed. <code>isBanned()</code> returns <code>false</code>, or <code>true, secondsRemaining</code>; a permanent ban returns <code>true, 0</code>.</p>
+
+<h2>Example</h2>
+<pre><code>command('permban', {
+  op = true,
+  usage = '/permban &lt;name&gt; [reason]',
+  description = 'Permanently ban a player'
+}, function(sender, args)
+  if not args[1] then return false end
+  local reason = args[2] or 'Banned by admin'
+  server.ban(args[1], reason, sender.name)
+  sender:send(color.red .. args[1] .. ' permanently banned.')
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">Check permissions on the calling command. Do not ban on raw player input.</div>
+
+</body>
+</html>

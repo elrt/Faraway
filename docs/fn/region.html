@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>region() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Region</div>
+<h1>region()</h1>
+
+<span class="sig">region(x1, y1, z1, x2, y2, z2)
+region(boundsTable)</span>
+
+<p>Creates an inclusive cuboid helper for area operations. Bounds are floored to block coordinates and reordered so each minimum is below its matching maximum.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x1, y1, z1</code></td><td>number</td><td>Starting coordinates.</td></tr>
+  <tr><td><code>x2, y2, z2</code></td><td>number</td><td>Ending coordinates.</td></tr>
+  <tr><td><code>boundsTable</code></td><td>table</td><td>Either an array with six coordinates or a table with <code>minX/minY/minZ/maxX/maxY/maxZ</code>.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A region object with various helper methods.</p>
+
+<h2>Example</h2>
+<pre><code>local x, y, z = world.spawn()
+local area = region(x - 4, y - 1, z - 4, x + 4, y - 1, z + 4)
+area:fill(89) -- fill area with glowstone</code></pre>
+
+</body>
+</html>

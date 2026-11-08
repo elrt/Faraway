@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>log() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Misc</div>
+<h1>log()</h1>
+
+<span class="sig">log(message1 [, message2, ...])</span>
+
+<p>Prints a message to the server console, prefixed with the plugin's name.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>message</code></td><td>any</td><td>Data to print. Multiple arguments are separated by spaces.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>log("Plugin loaded successfully!")
+log("Player count:", #server.players())</code></pre>
+
+</body>
+</html>

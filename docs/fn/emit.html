@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>emit() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Events</div>
+<h1>emit()</h1>
+
+<span class="sig">emit(name, dataTable)</span>
+
+<p>Dispatches a custom event to listeners.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>The name of the custom event.</td></tr>
+  <tr><td><code>dataTable</code></td><td>table</td><td>Table containing event data to pass to listeners.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Two values: the final <code>cancelled</code> boolean and the event table.</p>
+
+<h2>Example</h2>
+<pre><code>local cancelled, e = emit("myCustomEvent", { foo = "bar" })
+if not cancelled then
+  log("Event ran successfully.")
+end</code></pre>
+
+<h2>Notes</h2>
+<div class="note">The supplied table is copied into a new event table; its <code>cancel</code> field is ignored, and <code>source</code> is set to the emitting plugin's name. Cancellation is a shared flag, not an instruction to stop dispatching later listeners.</div>
+
+</body>
+</html>

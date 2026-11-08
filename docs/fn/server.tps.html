@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>server.tps() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Server</div>
+<h1>server.tps()</h1>
+
+<span class="sig">server.tps()</span>
+
+<p>Returns the server's recent TPS (ticks per second) and tick timing metrics.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>Three numbers returned by the server's TPS sampler: recent TPS and tick timing metrics. Their exact sampling windows are determined by the server implementation.</p>
+
+<h2>Example</h2>
+<pre><code>command('lag', function(sender)
+  local t1, t2, t3 = server.tps()
+  sender:send(string.format("TPS: %.1f, %.1f, %.1f", t1, t2, t3))
+  return true
+end)</code></pre>
+
+</body>
+</html>

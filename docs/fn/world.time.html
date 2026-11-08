@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.time() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.time() / setTime()</h1>
+
+<span class="sig">world.time()
+world.setTime(ticks)</span>
+
+<p>Reads or changes the world time.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>ticks</code></td><td>number</td><td>New time in ticks (0 is morning, 12000 is sunset).</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p><code>world.time()</code> returns the current time in ticks. <code>world.setTime()</code> returns nothing. <code>world.setTime()</code> accepts a number and converts it to a long tick value.</p>
+
+<h2>Example</h2>
+<pre><code>command('morning', { op = true }, function(sender)
+  world.setTime(0)
+  server.broadcast("Time set to morning.")
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note"><code>setTime()</code> changes world time immediately and sends the update to clients. The normal world tick continues after setting the time.</div>
+
+</body>
+</html>

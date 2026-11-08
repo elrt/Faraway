@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:give() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:give()</h1>
+
+<span class="sig">p:give(itemId [, count])</span>
+
+<p>Sends valid item stacks to an online player. Counts above 64 are split into stacks of at most 64.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>itemId</code></td><td>number</td><td>The item ID to give.</td></tr>
+  <tr><td><code>count</code></td><td>number, optional</td><td>The amount of the item. Defaults to 1.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>command('kit', { op = true }, function(sender)
+  if not sender.isPlayer then return true end
+
+  sender:give(278, 1) -- diamond pickaxe
+  sender:give(1, 64)  -- 64 stone
+  sender:send("Here is your kit.")
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">Item IDs must be greater than zero and refer to a registered item. An unknown ID raises a Lua error. Non-positive counts do not send any stacks.</div>
+
+</body>
+</html>

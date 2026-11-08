@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarAway Lua API</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <iframe src="header.html" title="FarAway Lua API" style="width:100%;height:100%;border:0;"></iframe>
+  </header>
+  <iframe id="nav" name="nav" title="Documentation navigation" src="nav.html"></iframe>
+  <iframe id="content" name="content" title="Documentation content" src="fn/home.html"></iframe>
+</div>
+<script>
+  (function () {
+    var nav = document.getElementById('nav');
+    var content = document.getElementById('content');
+    var toggle = document.getElementById('menu-toggle');
+    var page = 'fn/home.html';
+
+    function showPage(path, push) {
+      if (!/^fn\/[a-zA-Z0-9._-]+\.html$/.test(path)) path = 'fn/home.html';
+      if (push && path !== page) {
+        history.pushState({ page: path }, '', '?page=' + encodeURIComponent(path));
+      }
+      page = path;
+      content.src = path;
+      if (window.matchMedia('(max-width: 760px)').matches) {
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    nav.addEventListener('load', function () {
+      var doc = nav.contentDocument;
+      if (!doc) return;
+      doc.addEventListener('click', function (event) {
+        var link = event.target.closest('a[data-page]');
+        if (!link) return;
+        event.preventDefault();
+        showPage(link.getAttribute('data-page'), true);
+      });
+    });
+
+    content.addEventListener('load', function () {
+      var doc = content.contentDocument;
+      if (!doc) return;
+      doc.addEventListener('click', function (event) {
+        var link = event.target.closest('a[href]');
+        if (!link || link.target === '_top' || link.target === '_blank' || link.getAttribute('href').charAt(0) === '#') return;
+        var url = new URL(link.href, content.src);
+        if (url.origin !== location.origin || !url.pathname.endsWith('.html')) return;
+        var path = url.pathname.substring(new URL('.', location.href).pathname.length);
+        if (path.indexOf('fn/') !== 0) return;
+        event.preventDefault();
+        showPage(path, true);
+      });
+      var current = new URL(content.src).pathname.split('/').pop();
+      nav.contentDocument.querySelectorAll('.nav-link').forEach(function (link) {
+        link.classList.toggle('active', link.dataset.page.split('/').pop() === current);
+        if (link.classList.contains('active')) link.scrollIntoView({ block: 'nearest' });
+      });
+
+      var headings = Array.from(doc.querySelectorAll('h2'));
+      if (headings.length > 2) {
+        var toc = doc.createElement('nav');
+        toc.className = 'toc';
+        var title = doc.createElement('strong');
+        title.textContent = 'On this page';
+        toc.appendChild(title);
+        var list = doc.createElement('ul');
+        headings.forEach(function (heading, index) {
+          if (!heading.id) heading.id = 'section-' + (index + 1);
+          var item = doc.createElement('li');
+          var link = doc.createElement('a');
+          link.href = '#' + heading.id;
+          link.textContent = heading.textContent;
+          item.appendChild(link);
+          list.appendChild(item);
+        });
+        toc.appendChild(list);
+        var body = doc.querySelector('body');
+        var heading = body.querySelector('h1');
+        if (heading) body.insertBefore(toc, heading.nextSibling);
+      }
+
+      doc.querySelectorAll('pre').forEach(function (block) {
+        if (block.querySelector('.copy-code')) return;
+        var code = block.querySelector('code');
+        if (!code) return;
+        var source = code.textContent.replace(/\n$/, '');
+        var escapeHtml = function (text) {
+          return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        };
+        var isLua = !source.startsWith('plugins/');
+        var lineMarkup = function (text) {
+          return text.split('\n').map(function (line) { return '<span class="code-line">' + (line || ' ') + '</span>'; }).join('');
+        };
+        if (!isLua) {
+          code.innerHTML = lineMarkup(escapeHtml(source));
+          block.classList.add('code-block', 'plain-code');
+        } else {
+          var pattern = /(--[^\n]*|\[(=*)\[[\s\S]*?\]\1\]|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|\b\d+(?:\.\d+)?\b|\b(?:and|break|do|else|elseif|end|false|for|function|goto|if|in|local|nil|not|or|repeat|return|then|true|until|while)\b|\b(?:self|math|string|table|pairs|ipairs|tostring|tonumber|type|assert|error|next|select|unpack|pcall|xpcall)\b|\b[A-Za-z_][A-Za-z0-9_]*(?=\s*\()|\.\.|==|~=|<=|>=|[+*/%^#=<>%-])/g;
+          var highlighted = '';
+          var cursor = 0;
+          source.replace(pattern, function (token, _comment, _equals, offset) {
+            highlighted += escapeHtml(source.slice(cursor, offset));
+            var kind = token.indexOf('--') === 0 ? 'comment'
+              : token.charAt(0) === '"' || token.charAt(0) === "'" || token.indexOf('[[') === 0 ? 'string'
+              : /^\d/.test(token) ? 'number'
+              : /^(and|break|do|else|elseif|end|false|for|function|goto|if|in|local|nil|not|or|repeat|return|then|true|until|while)$/.test(token) ? 'keyword'
+              : /^(self|math|string|table|pairs|ipairs|tostring|tonumber|type|assert|error|next|select|unpack|pcall|xpcall)$/.test(token) ? 'library'
+              : /^[A-Za-z_]/.test(token) && /^\s*\(/.test(source.slice(offset + token.length)) ? 'function' : 'operator';
+            highlighted += '<span class="tok-' + kind + '">' + escapeHtml(token) + '</span>';
+            cursor = offset + token.length;
+            return token;
+          });
+          highlighted += escapeHtml(source.slice(cursor));
+          code.innerHTML = lineMarkup(highlighted);
+        }
+        code.dataset.source = source;
+        block.classList.add('code-block');
+        var toolbar = doc.createElement('div');
+        toolbar.className = 'code-toolbar';
+        var language = doc.createElement('span');
+        language.className = 'code-language';
+        language.textContent = isLua ? 'LUA' : 'TEXT';
+        toolbar.appendChild(language);
+        var button = doc.createElement('button');
+        button.className = 'copy-code';
+        button.type = 'button';
+        button.textContent = 'Copy';
+        button.addEventListener('click', function () {
+          var text = code.dataset.source;
+          function copied() {
+            button.textContent = 'Copied';
+            window.setTimeout(function () { button.textContent = 'Copy'; }, 1200);
+          }
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(copied).catch(function () { button.textContent = 'Copy failed'; });
+          } else {
+            var area = doc.createElement('textarea');
+            area.value = text;
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            doc.body.appendChild(area);
+            area.select();
+            var ok = doc.execCommand('copy');
+            area.remove();
+            button.textContent = ok ? 'Copied' : 'Copy failed';
+            window.setTimeout(function () { button.textContent = 'Copy'; }, 1200);
+          }
+        });
+        toolbar.appendChild(button);
+        block.insertBefore(toolbar, block.firstChild);
+      });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    toggle.addEventListener('click', function () {
+      var open = document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    window.addEventListener('popstate', function (event) {
+      var state = event.state;
+      var params = new URLSearchParams(location.search);
+      showPage(state && state.page || params.get('page') || 'fn/home.html', false);
+    });
+
+    var initial = new URLSearchParams(location.search).get('page');
+    if (initial) page = initial;
+    history.replaceState({ page: page }, '', location.href);
+    showPage(page, false);
+  })();
+</script>
+</body>
+</html>

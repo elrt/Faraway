@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>exports FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Misc</div>
+<h1>exports</h1>
+
+<span class="sig">exports.key = function(...) end</span>
+
+<p>Each plugin receives an initially empty Lua table in which it can publish values or functions for other plugins.</p>
+
+<h2>Parameters</h2>
+<p>This is a table, not a function; it has no parameters.</p>
+
+<h2>Returns</h2>
+<p>The plugin's own mutable exports table.</p>
+
+<h2>Example</h2>
+<pre><code>-- In Clock.lua:
+exports.getCount = function()
+  return data.count or 0
+end</code></pre>
+
+<h2>Notes</h2>
+<div class="note">Other plugins read these values through the read-only proxy returned by <code>getPlugin(name)</code>. Assign functions during plugin load; a proxy lookup follows plugin reloads.</div>
+
+</body>
+</html>

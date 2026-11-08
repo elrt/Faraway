@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:kick() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:kick()</h1>
+
+<span class="sig">p:kick([reason])</span>
+
+<p>Disconnects an online player.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>reason</code></td><td>string, optional</td><td>Shown to the player on the disconnect screen.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>on('chat', function(e)
+  if e.message:lower() == "hack" then
+    e.player:kick("Hacking is not allowed.")
+    e:cancel()
+  end
+end)</code></pre>
+
+</body>
+</html>

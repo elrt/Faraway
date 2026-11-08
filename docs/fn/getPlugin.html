@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>getPlugin() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Misc</div>
+<h1>getPlugin()</h1>
+
+<span class="sig">getPlugin(name)</span>
+
+<p>Returns a live, read-only proxy to another plugin's <code>exports</code> table.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>The name of the plugin to access.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A read-only proxy table. Looking up fields returns values from the named plugin's <code>exports</code>, or <code>nil</code> if the plugin is not enabled or that export is absent.</p>
+
+<h2>Example</h2>
+<pre><code>if hasPlugin("Clock") then
+  local clock = getPlugin("Clock")
+  if clock.setDay then clock.setDay() end
+end</code></pre>
+
+<h2>Notes</h2>
+<div class="note">The proxy follows reloads. Missing or unloaded exports return nil.</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>server.players() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Server</div>
+<h1>server.players()</h1>
+
+<span class="sig">server.players()</span>
+
+<p>Returns an array of all currently online players.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>A sequential Lua table (array) of player wrappers.</p>
+
+<h2>Example</h2>
+<pre><code>local count = 0
+for _, p in ipairs(server.players()) do
+  p:send(color.yellow .. "Server is restarting soon!")
+  count = count + 1
+end
+log("Warned " .. count .. " players.")</code></pre>
+
+</body>
+</html>

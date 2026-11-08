@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>command() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Commands</div>
+<h1>command()</h1>
+
+<span class="sig">command(name, options, handler)
+command(name, handler)</span>
+
+<p>Registers a slash command. Players and the server console can run plugin commands.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>Command name, without the slash.</td></tr>
+  <tr><td><code>options</code></td><td>table or function</td><td>Either the handler (short form) or a table with <code>description</code>, <code>usage</code>, <code>aliases</code>, <code>op</code> and <code>permission</code>.</td></tr>
+  <tr><td><code>handler</code></td><td>function</td><td>Called as <code>function(sender, args, label)</code>. Return <code>false</code> to print usage; <code>true</code> or no return value counts as handled. <code>args</code> contains strings and <code>label</code> is the lowercased command or alias entered.</td></tr>
+</table>
+
+<h2>Example</h2>
+<pre><code>command('greet', {
+  description = 'Greet a player',
+  usage = '/greet &lt;name&gt;',
+  aliases = {'hi'},
+  op = true
+}, function(sender, args)
+  if not args[1] then return false end
+  local target = server.player(args[1])
+  if not target then
+    sender:send('Player is offline')
+    return true
+  end
+  target:send('Hi from ' .. sender.name .. '!')
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">Arguments are split on spaces. Quotes are not grouped, so <code>/greet "John Smith"</code> gives <code>args = { '"John', 'Smith"' }</code>. Console senders are always allowed through command permission checks. For player-only methods, check <code>sender.isPlayer</code> first.</div>
+
+</body>
+</html>

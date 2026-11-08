@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>color.* FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Misc</div>
+<h1>Chat colors</h1>
+
+<p>The <code>color</code> table provides Minecraft chat color codes. Use the constants directly, or call <code>color.translate(text)</code> to convert ampersand codes such as <code>&amp;a</code> and <code>&amp;6</code>.</p>
+
+<h2>API</h2>
+<span class="sig">color.black ... color.white
+color.translate(text)</span>
+
+<p><code>color.translate(text)</code> returns a string, converting <code>&amp;0</code>–<code>&amp;9</code> and <code>&amp;a</code>–<code>&amp;f</code> to Minecraft formatting codes. Matching is case-insensitive; other ampersand sequences are unchanged.</p>
+
+<h2>Color names</h2>
+<p><code>black</code>, <code>dark_blue</code>, <code>dark_green</code>, <code>dark_aqua</code>, <code>dark_red</code>, <code>purple</code>, <code>gold</code>, <code>gray</code>, <code>dark_gray</code>, <code>blue</code>, <code>green</code>, <code>aqua</code>, <code>red</code>, <code>pink</code>, <code>yellow</code>, and <code>white</code>.</p>
+
+<h2>Examples</h2>
+<pre><code>command('error', function(sender)
+  sender:send(color.red .. 'An error occurred.')
+  server.broadcast(color.translate('&6[Server] &fPlease contact an admin.'))
+  return true
+end)</code></pre>
+
+<h2>Color a player's chat message</h2>
+<p>The <code>chat</code> event can rewrite a player's message body. The server's standard <code>&lt;name&gt;</code> prefix is not changed by this example.</p>
+<pre><code>on('chat', function(e)
+  e.message = color.green .. e.message
+end)</code></pre>
+
+<p>To style the name and whole line, translate only the plugin-generated prefix, cancel the original message, and broadcast a replacement:</p>
+<pre><code>on('chat', function(e)
+  local prefix = color.translate('&7<&b' .. e.player.name .. '&7> &f')
+  e:cancel()
+  server.broadcast(prefix .. e.message)
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">Players cannot type the raw Minecraft <code>§</code> character in chat; server input validation rejects it. Plugins can add formatting codes. Translating player-supplied text also converts any <code>&amp;0</code>–<code>&amp;f</code> sequences in it. If multiple plugins replace and rebroadcast chat, each may produce a separate line because cancellation does not stop later event listeners.</div>
+
+</body>
+</html>

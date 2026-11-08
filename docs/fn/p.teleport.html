@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:teleport() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:teleport()</h1>
+
+<span class="sig">p:teleport(x, y, z [, yaw [, pitch]])</span>
+
+<p>Teleports an online player to the specified coordinates.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x</code>, <code>y</code>, <code>z</code></td><td>number</td><td>World coordinates.</td></tr>
+  <tr><td><code>yaw</code></td><td>number, optional</td><td>Rotation (yaw).</td></tr>
+  <tr><td><code>pitch</code></td><td>number, optional</td><td>Rotation (pitch).</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>command('spawn', function(sender)
+  if not sender.isPlayer then return true end
+
+  local sx, sy, sz = world.spawn()
+  sender:teleport(sx, sy, sz)
+  sender:send(color.green .. "Teleported to spawn!")
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">If the player is offline, this method does nothing.</div>
+
+</body>
+</html>

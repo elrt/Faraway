@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>First plugin - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Getting started</div>
+<h1>First plugin</h1>
+
+<p>Create <code>plugins/Welcome.lua</code>. The filename becomes the plugin name.</p>
+
+<pre><code>log("Welcome plugin loaded")
+
+command("hello", {
+  usage = "/hello",
+  description = "Say hello"
+}, function(sender)
+  sender:send("Hello, " .. sender.name .. "!")
+  return true
+end)
+
+on("join", function(event)
+  event.player:send("Welcome to the server!")
+end)</code></pre>
+
+<p>The command handler receives <code>sender</code>, a 1-based array of string arguments, and the lowercased command label/alias as its third argument when declared. Return <code>false</code> to show the usage text; returning <code>true</code> or no value counts as handled. The <code>join</code> event is informational.</p>
+
+<p>When hot reload is enabled, saving the file loads or reloads the plugin automatically. Otherwise use <code>/reload</code> from the console or as an operator.</p>
+
+<div class="warn">Plugin callbacks run on the server thread. Avoid blocking operations and large loops, as they can delay game ticks.</div>
+
+</body>
+</html>

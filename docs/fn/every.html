@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>every() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Timers</div>
+<h1>every()</h1>
+
+<span class="sig">every(ticks, handler)</span>
+
+<p>Schedules a repeating task that runs every specified number of server ticks.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>ticks</code></td><td>integer</td><td>Period in ticks. Values below 1 are clamped to 1 tick; 20 ticks is approximately 1 second.</td></tr>
+  <tr><td><code>handler</code></td><td>function</td><td>Called as <code>function(task)</code>.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A task handle.</p>
+
+<h2>Example</h2>
+<pre><code>local task = every(20, function(task)
+  log("tick " .. server.ticks())
+end)
+
+-- Later: task:cancel()</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">Avoid expensive work in <code>every(1, ...)</code>. It runs every game tick on the server thread. The task handle's <code>cancel()</code> method stops the repeating task.</div>
+
+</body>
+</html>

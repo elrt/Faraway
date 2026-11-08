@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>hasPlugin() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Misc</div>
+<h1>hasPlugin()</h1>
+
+<span class="sig">hasPlugin(name)</span>
+
+<p>Reports whether a plugin is currently enabled.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>name</code></td><td>string</td><td>The name of the plugin to check.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p><code>true</code> if a plugin with that name is enabled, otherwise <code>false</code>. Name comparison is case-insensitive.</p>
+
+<h2>Example</h2>
+<pre><code>if not hasPlugin("Core") then
+  log("Warning: Core plugin is missing!")
+end</code></pre>
+
+</body>
+</html>

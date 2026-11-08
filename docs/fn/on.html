@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>on() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Events</div>
+<h1>on()</h1>
+
+<span class="sig">on(eventName, handler)</span>
+
+<p>Subscribes a function to a game event. You can add several handlers to the same event; they run in the order you registered them.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>eventName</code></td><td>string</td><td>Core events fired by this build: <code>ready</code>, <code>disable</code>, <code>pluginLoaded</code>, <code>pluginUnloaded</code>, <code>login</code>, <code>join</code>, <code>quit</code>, <code>chat</code>, <code>command</code>, <code>break</code>, <code>interact</code>, <code>place</code> and <code>move</code>. Plugins may also listen for custom events sent with <code>emit()</code>.</td></tr>
+  <tr><td><code>handler</code></td><td>function</td><td>Called as <code>function(e)</code>. Cancellable events may be cancelled with <code>e:cancel([reason])</code>.</td></tr>
+</table>
+
+<h2>Example</h2>
+<pre><code>on('join', function(e)
+  e.player:send('Welcome, ' .. e.player.name .. '!')
+end)
+
+on('chat', function(e)
+  if e.message == 'spam' then
+    e.player:send('No spam.')
+    e:cancel()
+  end
+end)</code></pre>
+
+<h2>Format chat with colors</h2>
+<p>Use <code>color.*</code> or <a href="color.html"><code>color.translate()</code></a> inside the <code>chat</code> event. This changes the message body while leaving the default player-name prefix unchanged.</p>
+<pre><code>on('chat', function(e)
+  e.message = color.green .. e.message
+end)</code></pre>
+<p>For a custom name and full-line format, translate a plugin-generated prefix, cancel the original chat, and send a replacement with <code>server.broadcast()</code>. See <a href="color.html">Chat colors</a>.</p>
+
+<h2>Notes</h2>
+<div class="note">Callbacks run synchronously on the server thread; keep them short. In this build, only <code>login</code>, <code>chat</code>, <code>command</code>, <code>break</code>, <code>interact</code>, <code>place</code>, and <code>move</code> use cancellation to affect the operation. <code>join</code> and <code>quit</code> are informational. The core event dispatcher does not stop later listeners after cancellation.</div>
+
+</body>
+</html>

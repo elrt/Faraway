@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>server save and tick helpers - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="home.html">Home</a> / Server</div>
+<h1>Save, backup and tick helpers</h1>
+
+<span class="sig">server.save()
+server.backup()
+server.ticks()</span>
+
+<h2>server.save()</h2>
+<p>Requests a full server save. Returns nothing.</p>
+
+<h2>server.backup()</h2>
+<p>Starts an incremental backup. Returns a boolean indicating whether the backup started.</p>
+
+<h2>server.ticks()</h2>
+<p>Returns the Farkit server tick counter as a number.</p>
+
+<h2>Example</h2>
+<pre><code>command("plugin-save", { op = true }, function(sender)
+  server.save()
+  sender:send("Save requested at tick " .. server.ticks())
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="warn"><code>server.save()</code> and <code>server.backup()</code> trigger server-wide operations. Restrict player-triggered commands appropriately.</div>
+
+</body>
+</html>

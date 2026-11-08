@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Region methods - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="home.html">Home</a> / Region</div>
+<h1>Other region methods</h1>
+
+<p>Region objects also provide the following helpers:</p>
+<table>
+  <tr><th>Method</th><th>Behavior</th></tr>
+  <tr><td><code>region:size()</code></td><td>Returns inclusive X, Y and Z sizes.</td></tr>
+  <tr><td><code>region:volume()</code></td><td>Returns the number of block positions in the region.</td></tr>
+  <tr><td><code>region:center()</code></td><td>Returns <code>(min + max + 1) / 2</code> for each axis.</td></tr>
+  <tr><td><code>region:intersects(other)</code></td><td>Checks whether two region bounds overlap.</td></tr>
+  <tr><td><code>region:expand(n [, ny [, nz]])</code></td><td>Returns a new region expanded by the supplied distances.</td></tr>
+  <tr><td><code>region:entities([kind])</code></td><td>Returns entities within the region, optionally filtered by kind.</td></tr>
+  <tr><td><code>region:replace(fromId, toId [, metadata])</code></td><td>Replaces matching blocks in the region.</td></tr>
+  <tr><td><code>region:each(callback)</code></td><td>Calls the callback with coordinates and block data for each position. Returning <code>false</code> stops iteration.</td></tr>
+  <tr><td><code>region:toTable()</code></td><td>Returns a table containing <code>minX/minY/minZ</code> and <code>maxX/maxY/maxZ</code>.</td></tr>
+</table>
+
+<h2>Notes</h2>
+<div class="warn">Region geometry methods are defined in the Farkit Lua bootstrap; entity and block operations they call are part of the bundled Faraway 1.2 extension. Keep iteration and edits bounded because large operations can delay server ticks.</div>
+
+</body>
+</html>

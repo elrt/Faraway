@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.set() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.set()</h1>
+
+<span class="sig">world.set(x, y, z, blockId [, metadata])</span>
+
+<p>Changes a block at the given overworld coordinates.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x</code>, <code>y</code>, <code>z</code></td><td>number</td><td>Block coordinates.</td></tr>
+  <tr><td><code>blockId</code></td><td>number</td><td>The new block ID. Use <code>0</code> for air.</td></tr>
+  <tr><td><code>metadata</code></td><td>number, optional</td><td>Optional block data value.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A boolean indicating success.</p>
+
+<h2>Example</h2>
+<pre><code>local x, y, z = world.spawn()
+local success = world.set(x, y + 5, z, 89) -- places a glowstone block
+
+if success then
+  log('Block placed successfully')
+end</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">Unknown block IDs raise a Lua error. Use 0 for air. Large edits should be divided across scheduled callbacks to avoid long ticks.</div>
+
+</body>
+</html>

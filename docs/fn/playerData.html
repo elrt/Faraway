@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>playerData() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Config &amp; data</div>
+<h1>playerData()</h1>
+
+<span class="sig">playerData(playerOrName)</span>
+
+<p>Returns a per-player table stored under <code>&lt;plugin folder&gt;/players/</code>.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>playerOrName</code></td><td>string | table</td><td>The player's name or player wrapper object.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>A persistent Lua table for the specified player.</p>
+
+<h2>Example</h2>
+<pre><code>local stats = playerData("Alex")
+stats.visits = (stats.visits or 0) + 1</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">Only serializable Lua values are persisted: tables with string/number keys, strings, numbers, and booleans. Functions, Java objects, and cyclic tables are not persisted.</div>
+
+</body>
+</html>

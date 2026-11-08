@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>server.broadcast() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Server</div>
+<h1>server.broadcast()</h1>
+
+<span class="sig">server.broadcast(message)</span>
+
+<p>Sends a chat packet to all online players and logs the message to the server console with formatting codes stripped. See <a href="color.html">Chat colors</a> for the color constants and <code>color.translate()</code>.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>message</code></td><td>string</td><td>Message text. Color codes can be used.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Nothing.</p>
+
+<h2>Example</h2>
+<pre><code>command('shout', { op = true }, function(sender, args)
+  local prefix = color.translate("&c[Shout] &f")
+  server.broadcast(prefix .. table.concat(args, " "))
+  return true
+end)</code></pre>
+
+</body>
+</html>

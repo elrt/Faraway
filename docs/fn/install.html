@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Install - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Getting started</div>
+<h1>Install a plugin</h1>
+
+<p>Farkit loads Lua plugins from the server's <code>plugins/</code> directory. A plugin can be a single Lua file or a folder with a <code>main.lua</code> entry point.</p>
+
+<pre><code>plugins/
+  Welcome.lua
+  Clock/
+    main.lua
+    config.lua
+    data.lua
+    players/</code></pre>
+
+<p><code>Welcome.lua</code> is loaded as plugin <code>Welcome</code> and stores its data under <code>plugins/Welcome/</code>. A folder plugin uses the folder name, for example <code>Clock/main.lua</code>.</p>
+
+<h2>Lua environment</h2>
+<p>Plugins use Lua 5.2 syntax through LuaJ. LuaJ standard globals and Java interop (<code>luajava</code>) are available. Shared modules in <code>plugins/lib/</code> can be loaded with <code>require("shared")</code>; files in a plugin folder can also be required.</p>
+
+<h2>Reloading</h2>
+<p>With <code>plugin-hot-reload=true</code> (the default), plugin files are checked about once per second; a detected change is applied after the file is unchanged for another check. Changes in <code>plugins/lib/</code> reload all plugins. Server console or operators can use <code>/reload</code> to reload all plugins, <code>/reload Clock</code> for one plugin, and <code>/plugins</code> to list loaded plugins.</p>
+
+<div class="warn">Plugins run inside the server process with Java interop and file access. Install only plugins you trust.</div>
+
+</body>
+</html>

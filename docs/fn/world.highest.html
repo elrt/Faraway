@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.highest() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.highest()</h1>
+
+<span class="sig">world.highest(x, z)</span>
+
+<p>Returns the world's height-map value for the given X and Z block coordinates.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x</code>, <code>z</code></td><td>number</td><td>World X and Z coordinates.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>An integer height value.</p>
+
+<h2>Example</h2>
+<pre><code>local x, z = 100, 100
+local y = world.highest(x, z)
+log("Surface at 100,100 is at Y=" .. y)</code></pre>
+
+</body>
+</html>

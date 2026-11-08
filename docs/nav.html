@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><base target="content"><link rel="stylesheet" href="style.css">
+<style>
+  body{padding:12px;font-size:13px;}
+  h3{margin:16px 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+  h3:first-child{margin-top:0;}
+  ul{list-style:none;padding:0;margin:0;}
+  a{display:block;padding:5px 8px;border-radius:4px;color:var(--text);}
+  a:hover{background:var(--bg-soft);color:var(--accent);text-decoration:none;}
+  a.active{background:var(--sig-bg);color:var(--accent);font-weight:600;}
+</style>
+</head><body>
+  <section class="nav-group"><h3>Documentation</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/home.html" href="fn/home.html">Overview</a></li>
+  </ul></section>
+  <section class="nav-group"><h3>Getting started</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/install.html" href="fn/install.html">Install</a></li>
+    <li><a class="nav-link" data-page="fn/first-plugin.html" href="fn/first-plugin.html">First plugin</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Commands</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/command.html" href="fn/command.html">command()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Events</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/on.html" href="fn/on.html">on()</a></li>
+    <li><a class="nav-link" data-page="fn/emit.html" href="fn/emit.html">emit()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Music</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/music.html" href="fn/music.html">Player music API</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Integrations</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/network.html" href="fn/network.html">Outbound network API</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Player</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/p.send.html" href="fn/p.send.html">p:send()</a></li>
+    <li><a class="nav-link" data-page="fn/p.pos.html" href="fn/p.pos.html">p:pos()</a></li>
+    <li><a class="nav-link" data-page="fn/p.teleport.html" href="fn/p.teleport.html">p:teleport()</a></li>
+    <li><a class="nav-link" data-page="fn/p.give.html" href="fn/p.give.html">p:give()</a></li>
+    <li><a class="nav-link" data-page="fn/p.health.html" href="fn/p.health.html">p:health() / p:setHealth()</a></li>
+    <li><a class="nav-link" data-page="fn/p.isOp.html" href="fn/p.isOp.html">p:isOp()</a></li>
+    <li><a class="nav-link" data-page="fn/p.kick.html" href="fn/p.kick.html">p:kick()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Server</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/server.player.html" href="fn/server.player.html">server.player()</a></li>
+    <li><a class="nav-link" data-page="fn/server.players.html" href="fn/server.players.html">server.players()</a></li>
+    <li><a class="nav-link" data-page="fn/server.isOp.html" href="fn/server.isOp.html">server.isOp()</a></li>
+    <li><a class="nav-link" data-page="fn/server.broadcast.html" href="fn/server.broadcast.html">server.broadcast()</a></li>
+    <li><a class="nav-link" data-page="fn/server.ban.html" href="fn/server.ban.html">server.ban()</a></li>
+    <li><a class="nav-link" data-page="fn/server.tempban.html" href="fn/server.tempban.html">server.tempban()</a></li>
+    <li><a class="nav-link" data-page="fn/server.mute.html" href="fn/server.mute.html">server.mute()</a></li>
+    <li><a class="nav-link" data-page="fn/server.status.html" href="fn/server.status.html">server.isBanned() / isMuted()</a></li>
+    <li><a class="nav-link" data-page="fn/server.parseTime.html" href="fn/server.parseTime.html">server.parseTime()</a></li>
+    <li><a class="nav-link" data-page="fn/server.save.html" href="fn/server.save.html">server.save() / backup() / ticks()</a></li>
+    <li><a class="nav-link" data-page="fn/server.kick.html" href="fn/server.kick.html">server.kick()</a></li>
+    <li><a class="nav-link" data-page="fn/server.op.html" href="fn/server.op.html">server.op() / deop()</a></li>
+    <li><a class="nav-link" data-page="fn/server.tps.html" href="fn/server.tps.html">server.tps()</a></li>
+    <li><a class="nav-link" data-page="fn/server.run.html" href="fn/server.run.html">server.run()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>World</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/world.get.html" href="fn/world.get.html">world.get()</a></li>
+    <li><a class="nav-link" data-page="fn/world.set.html" href="fn/world.set.html">world.set()</a></li>
+    <li><a class="nav-link" data-page="fn/world.fill.html" href="fn/world.fill.html">world.fill()</a></li>
+    <li><a class="nav-link" data-page="fn/world.highest.html" href="fn/world.highest.html">world.highest()</a></li>
+    <li><a class="nav-link" data-page="fn/world.spawn.html" href="fn/world.spawn.html">world.spawn()</a></li>
+    <li><a class="nav-link" data-page="fn/world.time.html" href="fn/world.time.html">world.time()</a></li>
+    <li><a class="nav-link" data-page="fn/world.seed.html" href="fn/world.seed.html">world.seed()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Region</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/region.html" href="fn/region.html">region()</a></li>
+    <li><a class="nav-link" data-page="fn/region.contains.html" href="fn/region.contains.html">:contains()</a></li>
+    <li><a class="nav-link" data-page="fn/region.players.html" href="fn/region.players.html">:players()</a></li>
+    <li><a class="nav-link" data-page="fn/region.fill.html" href="fn/region.fill.html">:fill()</a></li>
+    <li><a class="nav-link" data-page="fn/region.methods.html" href="fn/region.methods.html">Other region methods</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Timers</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/after.html" href="fn/after.html">after()</a></li>
+    <li><a class="nav-link" data-page="fn/every.html" href="fn/every.html">every()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Config &amp; data</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/config.html" href="fn/config.html">config()</a></li>
+    <li><a class="nav-link" data-page="fn/playerData.html" href="fn/playerData.html">playerData()</a></li>
+    <li><a class="nav-link" data-page="fn/save.html" href="fn/save.html">save()</a></li>
+  </ul></section>
+
+  <section class="nav-group"><h3>Misc</h3>
+  <ul>
+    <li><a class="nav-link" data-page="fn/log.html" href="fn/log.html">log()</a></li>
+    <li><a class="nav-link" data-page="fn/color.html" href="fn/color.html">Chat colors / color.*</a></li>
+    <li><a class="nav-link" data-page="fn/exports.html" href="fn/exports.html">exports</a></li>
+    <li><a class="nav-link" data-page="fn/getPlugin.html" href="fn/getPlugin.html">getPlugin()</a></li>
+    <li><a class="nav-link" data-page="fn/hasPlugin.html" href="fn/hasPlugin.html">hasPlugin()</a></li>
+    <li><a class="nav-link" data-page="fn/plugins.html" href="fn/plugins.html">plugins()</a></li>
+  </ul></section>
+</body></html>

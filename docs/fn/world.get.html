@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>world.get() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / World</div>
+<h1>world.get()</h1>
+
+<span class="sig">world.get(x, y, z) -&gt; blockId, metadata</span>
+
+<p>Reads the block ID and metadata at the given block coordinates.</p>
+
+<h2>Parameters</h2>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>x</code>, <code>y</code>, <code>z</code></td><td>number</td><td>Block coordinates.</td></tr>
+</table>
+
+<h2>Returns</h2>
+<p>Two numbers: the block ID and the metadata value.</p>
+
+<h2>Example</h2>
+<pre><code>local id, meta = world.get(0, 64, 0)
+log('Block at 0,64,0 is ' .. id .. ':' .. meta)
+
+if id == 0 then
+  log('That is air')
+end</code></pre>
+
+<h2>Notes</h2>
+<div class="warn">The API reads the primary server world's block data. Avoid scanning large areas synchronously in one tick.</div>
+
+</body>
+</html>

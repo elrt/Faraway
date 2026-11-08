@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p:isOp() FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="../fn/home.html" target="content">Home</a> / Player</div>
+<h1>p:isOp()</h1>
+
+<span class="sig">p:isOp()</span>
+
+<p>Queries operator status.</p>
+
+<h2>Parameters</h2>
+<p>None.</p>
+
+<h2>Returns</h2>
+<p>A boolean indicating whether this player is an operator.</p>
+
+<h2>Example</h2>
+<pre><code>command('adminchat', function(sender, args)
+  if not sender:isOp() then
+    sender:send("Operators only.")
+    return true
+  end
+  server.broadcast("[Admin] " .. sender.name .. ": " .. table.concat(args, " "))
+  return true
+end)</code></pre>
+
+<h2>Notes</h2>
+<div class="note">This page documents the player wrapper method. Command <code>sender:isOp()</code> also works for the console sender, which returns <code>true</code>.</div>
+
+</body>
+</html>
