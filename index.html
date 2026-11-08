@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarAway</title>
+<style>
+  body { background: #faf8f2; color: #1a1a1a; font-family: Georgia, serif; padding: 6vw 5vw; line-height: 1.7; max-width: 680px; margin: 0 auto; }
+  mark { background: #d4ff3a; padding: 0 2px; }
+  fieldset { border: 2px solid #1a1a1a; padding: 16px; margin: 20px 0; }
+  legend { font-family: 'Courier New', monospace; font-size: 12px; letter-spacing: 2px; padding: 0 8px; }
+  details { border: 2px solid #1a1a1a; padding: 12px 16px; margin: 16px 0; }
+  summary { cursor: pointer; font-weight: bold; }
+  dialog { border: 2px solid #1a1a1a; padding: 20px; background: #fff; max-width: 480px; }
+  dialog::backdrop { background: #00000033; }
+  ruby { font-size: 20px; }
+  rt { font-size: 11px; color: #888; }
+  blockquote { border-left: 4px solid #1a1a1a; margin: 20px 0; padding-left: 20px; font-style: italic; }
+  address { font-style: normal; font-family: 'Courier New', monospace; font-size: 13px; margin: 20px 0; }
+  figure { margin: 20px 0; }
+  figcaption { font-family: 'Courier New', monospace; font-size: 12px; color: #888; margin-top: 6px; }
+
+  data.coord { font-family: 'Courier New', monospace; font-size: 0.95em; background: #1a1a1a; color: #faf8f2; padding: 1px 6px; border-radius: 2px; }
+  data.far { background: #8a2a2a; color: #faf8f2; }
+  samp.num { font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.1em; }
+
+  u { text-decoration: underline; text-decoration-color: #8a2a2a; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  strong { font-weight: bold; }
+  em { font-style: italic; }
+  mark.key { background: #d4ff3a; font-weight: bold; padding: 1px 4px; }
+
+  .gallery { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+  .gallery figure { margin: 0; flex: 1 1 200px; }
+  .gallery img { width: 100%; height: auto; display: block; border: 2px solid #1a1a1a; cursor: zoom-in; }
+  .gallery figcaption { font-size: 11px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<details open>
+  <summary>FarAway <mark class="key">mod</mark> for minecraft <mark class="key">alpha 1.2.3</mark></summary>
+  <blockquote>
+    The mod doesn't add a whole lot of content, but it <u>significantly improves the server core</u>.<br>
+    Actually, the most noticeable thing is that the Farlands don't start at the
+    <data class="coord far" value="12550821">12,550,821</data> x/z coordinates,
+    but at <samp class="num">64</samp>!
+  </blockquote>
+</details>
+
+<fieldset>
+  <legend>SCREENSHOTS</legend>
+  <div style="columns: 2 200px; column-gap: 12px;">
+    <figure style="margin: 0 0 12px;">
+      <a href="Screenshot.png" target="_blank">
+        <img src="Screenshot.png" alt="Additional screenshot" style="width: 100%; border: 2px solid #1a1a1a; cursor: zoom-in;">
+      </a>
+    </figure>
+    <figure style="margin: 0 0 12px;">
+      <a href="Screenshot3.png" target="_blank">
+        <img src="Screenshot3.png" alt="Additional screenshot 3" style="width: 100%; border: 2px solid #1a1a1a; cursor: zoom-in;">
+      </a>
+    </figure>
+    <figure style="margin: 0 0 12px;">
+      <a href="Screenshot4.png" target="_blank">
+        <img src="Screenshot4.png" alt="Additional screenshot 4" style="width: 100%; border: 2px solid #1a1a1a; cursor: zoom-in;">
+      </a>
+    </figure>
+    <figure style="margin: 0 0 12px;">
+      <a href="Screenshot5.jpeg" target="_blank">
+        <img src="Screenshot5.jpeg" alt="Additional screenshot 5" style="width: 100%; border: 2px solid #1a1a1a; cursor: zoom-in;">
+      </a>
+    </figure>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>The server side of the mod</legend>
+  <dl>
+    <dt><dfn>TLS 1.3</dfn></dt>
+    <dd><u>Absolutely ALL traffic</u> is encrypted using <strong>TLS 1.3</strong></dd>
+    <dt><dfn>Lua plugins</dfn></dt>
+    <dd>There is a <em>fairly extensive list of APIs</em> that you can use for your plugins. <br>
+    <mark class="key">Dont forget that plugins can be reloaded without having to restart the server!</mark></dd>
+    <dt><dfn>Play without lag, even with a ping of 300+!</dfn></dt>
+    <dd>I completely rewrote the network code and <u>moved world generation to background threads</u>. Chunks load a full <strong>2.5 times faster</strong>!! <br>
+    The game will run <em>perfectly smoothly</em> no matter where you are or what internet connection you are using (though I apologize if you’re still experiencing lag. Im still working on that)</dd>
+  </dl>
+</fieldset>
+
+<details>
+  <summary>More about FarAway</summary>
+  maybe soon
+</details>
+
+<dialog open>
+  <ruby>We</ruby>
+  <ruby>Have</ruby>
+  <ruby>Discord<rt>server</rt></ruby>
+  <blockquote>
+    Join us! <rt>please</rt>
+  </blockquote>
+</dialog>
+
+<figure>
+  <blockquote>
+    VERY IMPORTANT TEXT
+  </blockquote>
+</figure>
+
+<hr>
+<br><br><br><br>
+<footer>
+  <small>C 2026 Leafprod</small>
+</footer>
+
+</body>
+</html>
