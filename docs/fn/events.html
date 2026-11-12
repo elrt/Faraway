@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events - FarAway Lua API</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .event-table { table-layout: fixed; }
+  .event-table th:first-child, .event-table td:first-child { width: 22%; }
+  .event-table td { overflow-wrap: anywhere; }
+  .event-table code { white-space: normal; overflow-wrap: anywhere; }
+  @media (max-width: 520px) {
+    .event-table { font-size: 12px; }
+    .event-table th, .event-table td { padding: 5px 6px; }
+  }
+</style>
+</head>
+<body style="padding:20px 24px;">
+
+<div class="crumb"><a href="home.html" target="content">Home</a> / Events</div>
+<h1>Built-in events</h1>
+
+<p>Register listeners with <a href="on.html"><code>on(name, handler)</code></a>. This reference describes all built-in events in Farkit 1.6. Event names are case-sensitive.</p>
+
+<div class="note">Every event table starts with <code>cancelled</code> and <code>cancel(reason)</code>. Cancellation only affects the operation when the row says it is cancellable. It is shared between listeners and does not stop the remaining listeners from running.</div>
+
+<h2>Plugin lifecycle</h2>
+<table class="event-table">
+  <tr><th>Event</th><th>When it fires, fields, and behavior</th></tr>
+  <tr><td><code>ready</code></td><td>After the initial plugin load, all enabled plugins receive it; a plugin loaded or reloaded later receives its own <code>ready</code>. Common event fields only. Informational; cancellation is ignored.</td></tr>
+  <tr><td><code>disable</code></td><td>Sent only to the plugin being disabled, before its <code>save()</code> hook and cleanup. Runs on unload, reload, and server shutdown. Common event fields only; cancellation is ignored.</td></tr>
+  <tr><td><code>pluginLoaded</code></td><td>Sent to other enabled plugins when a plugin is added or reloaded. Fields: <code>name</code> (the plugin name). Not sent for the initial startup batch. Informational.</td></tr>
+  <tr><td><code>pluginUnloaded</code></td><td>Sent to the remaining enabled plugins when a plugin is removed, reloaded, or unloaded as part of a full reload/shutdown. Fields: <code>name</code>. Informational.</td></tr>
+</table>
+
+<h2>Player events</h2>
+<table class="event-table">
+  <tr><th>Event</th><th>When it fires, fields, and behavior</th></tr>
+  <tr><td><code>login</code></td><td>Before a connection is admitted. Fields: <code>name</code>, <code>ip</code>. Cancellable: call <code>e:cancel("reason")</code> to reject the login; the reason is shown to the player.</td></tr>
+  <tr><td><code>join</code></td><td>After the player joins. Fields: <code>player</code>, <code>firstJoin</code> (boolean). Informational.</td></tr>
+  <tr><td><code>quit</code></td><td>When a player leaves. Fields: <code>player</code>. Informational.</td></tr>
+  <tr><td><code>chat</code></td><td>For an allowed chat message. Fields: <code>player</code>, <code>message</code>. Set <code>e.message</code> to rewrite the body, or cancel to suppress it. Muted/blocked chat is stopped before this event.</td></tr>
+  <tr><td><code>command</code></td><td>When a player enters a slash command, before plugin and built-in command dispatch. Fields: <code>player</code>, <code>command</code> (the original line, including <code>/</code>). Cancel to consume the command.</td></tr>
+  <tr><td><code>move</code></td><td>When the player crosses into a different block coordinate. Fields: <code>player</code>, <code>fromX</code>, <code>fromY</code>, <code>fromZ</code>, <code>x</code>, <code>y</code>, <code>z</code> (world-space positions). Cancel to reject the move and return the player to the previous position.</td></tr>
+  <tr><td><code>damage</code></td><td>When a living entity takes damage. Fields: <code>entity</code>, <code>player</code> when the target is a server player, <code>attacker</code> (may be <code>nil</code>), <code>cause</code>, <code>amount</code>. Cancel to prevent damage, or set <code>e.amount</code> to change it. Common causes include <code>player</code>, <code>mob</code>, <code>other</code>, and <code>plugin</code>.</td></tr>
+  <tr><td><code>death</code></td><td>When a living entity would die. Fields: <code>entity</code>, <code>player</code> when applicable, <code>killer</code> (may be <code>nil</code>), <code>cause</code>, <code>health</code>. Cancel to prevent death; the entity is revived with at least 1 health, using <code>e.health</code> if set.</td></tr>
+  <tr><td><code>respawn</code></td><td>When a player respawns. Fields: <code>player</code>, <code>x</code>, <code>y</code>, <code>z</code>. Change one or more coordinates to redirect the respawn. Cancellation is ignored.</td></tr>
+</table>
+
+<h2>World and block events</h2>
+<table class="event-table">
+  <tr><th>Event</th><th>When it fires, fields, and behavior</th></tr>
+  <tr><td><code>break</code></td><td>Before a player breaks a block. Fields: <code>player</code>, <code>x</code>, <code>y</code>, <code>z</code>, <code>block</code> (block ID), <code>meta</code>. Cancel to prevent the break.</td></tr>
+  <tr><td><code>interact</code></td><td>Before a player activates a block. Fields: <code>player</code>, <code>x</code>, <code>y</code>, <code>z</code>, <code>block</code> (block ID). Cancel to prevent the interaction.</td></tr>
+  <tr><td><code>place</code></td><td>Before a player places a block. Fields: <code>player</code>, <code>x</code>, <code>y</code>, <code>z</code> (target block after applying the clicked face), <code>block</code>, <code>item</code> (both are the placed item/block ID). Cancel to prevent placement.</td></tr>
+  <tr><td><code>explode</code></td><td>Before an explosion is applied. Fields: <code>x</code>, <code>y</code>, <code>z</code>, <code>power</code>, <code>source</code> (entity wrapper or <code>nil</code>), <code>sourceType</code>, <code>breakBlocks</code>. Cancel to stop the explosion. Change <code>power</code> to adjust it or set <code>breakBlocks = false</code> to preserve blocks; entity damage still applies.</td></tr>
+  <tr><td><code>sign</code></td><td>When a player edits a sign. Fields: <code>player</code>, <code>x</code>, <code>y</code>, <code>z</code>, <code>lines</code> (Lua array indexed 1–4). Change lines to rewrite text (each line is limited to 15 characters), or cancel to reject the edit.</td></tr>
+  <tr><td><code>mobSpawn</code></td><td>When a non-player living entity is about to join the world, including natural and plugin-requested spawns. Fields: <code>entity</code>, <code>type</code>, <code>x</code>, <code>y</code>, <code>z</code>. Cancel to prevent the spawn.</td></tr>
+</table>
+
+<h2>Custom events</h2>
+<p>Any plugin can dispatch a custom event with <a href="emit.html"><code>emit(name, data)</code></a>. Listeners receive a copy of <code>data</code>, with <code>source</code> set to the emitting plugin's name. The call returns <code>cancelled, event</code>; cancellation is meaningful to the code that called <code>emit()</code>, not to the game server.</p>
+
+<h2>Example</h2>
+<pre><code>on("damage", function(e)
+  if e.player then
+    log(e.player.name .. " took " .. e.amount .. " damage from " .. e.cause)
+  end
+end)
+
+on("explode", function(e)
+  if e.sourceType == "plugin" then
+    e.breakBlocks = false
+  end
+end)</code></pre>
+
+<div class="warn">Event listeners run synchronously on the server thread. Avoid network waits, long loops, and expensive world scans inside a handler.</div>
+
+</body>
+</html>

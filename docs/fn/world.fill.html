@@ -24,14 +24,14 @@
 </table>
 
 <h2>Returns</h2>
-<p>A boolean success result from the extended helper.</p>
+<p>The number of block positions successfully changed. Returns <code>0</code> if no blocks changed.</p>
 
 <h2>Example</h2>
 <pre><code>local x, y, z = world.spawn()
 world.fill(x - 2, y, z - 2, x + 2, y, z + 2, 1) -- 5x5 stone platform</code></pre>
 
 <h2>Notes</h2>
-<div class="warn">This helper belongs to the bundled Faraway 1.2 extension, not the base methods declared in <code>Farkit.java</code>. Large edits should be divided across scheduled callbacks to avoid long ticks.</div>
+<div class="warn">This helper belongs to the bundled Faraway 1.2 extension, not the base methods declared in <code>Farkit.java</code>. Y coordinates are clipped to <code>0..127</code>; each call is limited to <code>131,072</code> block positions and larger areas raise an error. Split large edits across scheduled callbacks to avoid long ticks.</div>
 
 </body>
 </html>

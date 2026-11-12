@@ -22,12 +22,12 @@
 </table>
 
 <h2>Returns</h2>
-<p>Returns the value from the extended <code>world.fill()</code> helper.</p>
+<p>The number of block positions successfully changed, passed through from <code>world.fill()</code>.</p>
 
 <h2>Example</h2>
 <pre><code>command('cleararena', { op = true }, function(sender)
-  arenaRegion:fill(0) -- clear with air
-  sender:send("Arena cleared.")
+  local changed = arenaRegion:fill(0) -- clear with air
+  sender:send("Cleared " .. changed .. " blocks.")
   return true
 end)</code></pre>
 

@@ -12,12 +12,12 @@
 
 <span class="sig">on(eventName, handler)</span>
 
-<p>Subscribes a function to a game event. You can add several handlers to the same event; they run in the order you registered them.</p>
+<p>Subscribes a function to an event. You can register several handlers for the same event; they run in registration order. For every built-in event, its fields, trigger, and cancellation behavior are listed in the <a href="events.html">event reference</a>.</p>
 
 <h2>Parameters</h2>
 <table>
   <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-  <tr><td><code>eventName</code></td><td>string</td><td>Core events fired by this build: <code>ready</code>, <code>disable</code>, <code>pluginLoaded</code>, <code>pluginUnloaded</code>, <code>login</code>, <code>join</code>, <code>quit</code>, <code>chat</code>, <code>command</code>, <code>break</code>, <code>interact</code>, <code>place</code> and <code>move</code>. Plugins may also listen for custom events sent with <code>emit()</code>.</td></tr>
+  <tr><td><code>eventName</code></td><td>string</td><td>Case-sensitive event name. See the <a href="events.html">complete event reference</a>. Plugins may also listen for custom events sent with <code>emit()</code>.</td></tr>
   <tr><td><code>handler</code></td><td>function</td><td>Called as <code>function(e)</code>. Cancellable events may be cancelled with <code>e:cancel([reason])</code>.</td></tr>
 </table>
 
@@ -41,7 +41,7 @@ end)</code></pre>
 <p>For a custom name and full-line format, translate a plugin-generated prefix, cancel the original chat, and send a replacement with <code>server.broadcast()</code>. See <a href="color.html">Chat colors</a>.</p>
 
 <h2>Notes</h2>
-<div class="note">Callbacks run synchronously on the server thread; keep them short. In this build, only <code>login</code>, <code>chat</code>, <code>command</code>, <code>break</code>, <code>interact</code>, <code>place</code>, and <code>move</code> use cancellation to affect the operation. <code>join</code> and <code>quit</code> are informational. The core event dispatcher does not stop later listeners after cancellation.</div>
+<div class="note">Callbacks run synchronously on the server thread; keep them short. Cancellation is shared by all listeners, but does not stop later listeners from running. Only events documented as cancellable use that flag to affect a game operation.</div>
 
 </body>
 </html>

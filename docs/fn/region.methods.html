@@ -19,7 +19,7 @@
   <tr><td><code>region:intersects(other)</code></td><td>Checks whether two region bounds overlap.</td></tr>
   <tr><td><code>region:expand(n [, ny [, nz]])</code></td><td>Returns a new region expanded by the supplied distances.</td></tr>
   <tr><td><code>region:entities([kind])</code></td><td>Returns entities within the region, optionally filtered by kind.</td></tr>
-  <tr><td><code>region:replace(fromId, toId [, metadata])</code></td><td>Replaces matching blocks in the region.</td></tr>
+  <tr><td><code>region:replace(fromId, toId [, metadata])</code></td><td>Replaces matching blocks and returns the number changed. Uses the same per-call volume limit and Y range as <code>world.fill()</code>.</td></tr>
   <tr><td><code>region:each(callback)</code></td><td>Calls the callback with coordinates and block data for each position. Returning <code>false</code> stops iteration.</td></tr>
   <tr><td><code>region:toTable()</code></td><td>Returns a table containing <code>minX/minY/minZ</code> and <code>maxX/maxY/maxZ</code>.</td></tr>
 </table>
